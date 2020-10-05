@@ -15,7 +15,7 @@ return [
     'controllerNamespace' => 'console\controllers',
     'modules' => [
         'gii' => 'yii\gii\Module',
-    ],
+	],
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\faker\FixtureController',

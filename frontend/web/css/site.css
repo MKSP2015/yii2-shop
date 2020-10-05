@@ -22,7 +22,7 @@ body {
 }
 
 .jumbotron {
-    text-align: center;
+    text-align: left;
     background-color: transparent;
 }
 
@@ -95,4 +95,14 @@ a.desc:after {
 ul.menu .active a {
     color: #fff;
     background: #428bca;
+}
+
+
+.container {
+ /* background: #FFF;*/
+  border-radius: 5px;
+  clear: both;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
 }

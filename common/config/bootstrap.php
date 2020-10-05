@@ -4,5 +4,10 @@ Yii::setAlias('frontend', dirname(dirname(__DIR__)) . '/frontend');
 Yii::setAlias('backend', dirname(dirname(__DIR__)) . '/backend');
 Yii::setAlias('console', dirname(dirname(__DIR__)) . '/console');
 
-Yii::setAlias('frontendWebroot', 'http://shop.local/');
-Yii::setAlias('backendWebroot', 'http://admin.shop.local/');
+
+// @app/migrations
+
+
+Yii::setAlias('frontendWebroot', 'http://127.0.0.1/3wbao/frontend/web/');
+Yii::setAlias('backendWebroot', 'http://127.0.0.1/3wbao/backend/web/');
+Yii::setAlias('CWebroot', 'http://127.0.0.1/3wbao/common/');

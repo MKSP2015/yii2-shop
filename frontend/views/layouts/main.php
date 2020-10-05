@@ -1,10 +1,12 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
+
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -14,64 +16,99 @@ AppAsset::register($this);
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+<!--[if gt IE 8]><!--> <html xmlns:wb="http://open.weibo.com/wb"> <!--<![endif]-->
 <head>
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="大数据" />
+    <meta name="description" content="大数据" />
+    <link href="css/carousel.css" rel="stylesheet"> 
+    <link href="css/justified-nav.css" rel="stylesheet">
+    
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode(  Yii::$app->id ) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
-    <?php $this->beginBody() ?>
-    <div class="wrap">
-        <?php
-            NavBar::begin([
-                'brandLabel' => 'Shop',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-            ]);
-            $itemsInCart = Yii::$app->cart->getCount();
-            $menuItems = [
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
-                ['label' => 'My cart' . ($itemsInCart ? " ($itemsInCart)" : ''), 'url' => ['/cart/list']],
-            ];
-            /*if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-            } else {
-                $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ];
-            }*/
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => $menuItems,
-            ]);
-            NavBar::end();
-        ?>
-
-        <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+<div class="navbar-wrapper">
+      <div class="container">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="<?php echo Yii::getAlias('@frontendWebroot'); ?>"><?php echo Yii::$app->id ?></a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="<?php echo Yii::getAlias('@frontendWebroot'); ?>">首页</a></li>
+                <li class="dropdown">
+                  <a href="<?php  echo Yii::getAlias('@frontendWebroot');  ?>/train" class="dropdown-toggle" data-toggle="dropdown">培训 <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php echo Url::to(['site/train1']) ?> ">速成班</a></li>
+                    <li><a href="<?php echo Url::to(['site/train2']) ?>">预备班</a></li>
+                    <li><a href="<?php echo Url::to(['site/train3']) ?>">正式班</a></li>
+                    <li><a href="<?php echo Url::to(['site/train4']) ?>">会员班</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="<?php ?>/data" class="dropdown-toggle" data-toggle="dropdown">数据超市 <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php echo Url::to(['site/buydata']) ?>">买数据</a></li>
+                    <li><a href="<?php echo Url::to(['site/selldata']) ?>">卖数据</a></li>
+                    <li class="divider"></li>
+                    <li><a href="<?php echo Url::to(['consultation1']) ?>">咨询</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="<?php  ?>/soft" class="dropdown-toggle" data-toggle="dropdown">软件超市 <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php  echo Url::to(['site/osoft'])  ?>">开源软件</a></li>
+                    <li><a href="<?php  echo Url::to(['site/bsoft'])?>">商业软件</a></li>
+                    <li class="divider"></li>
+                    <li><a href="<?php echo Url::to(['consultation2']) ?>">咨询</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <form class="navbar-form navbar-right" role="form" action="<?php echo Url::to(['site/email']); ?>" method="post">
+	            <div class="form-group">
+	               <input type="text" placeholder="邮箱" name="email" size="24" class="form-control">
+	            </div>
+	               <button type="submit" class="btn btn-success">订阅</button>
+	          	   <a class="btn btn-lg btn-primary" href="<?php echo Url::to(['site/reg']) ?>" role="button">认证</a>
+	          </form>
+           </div>
         </div>
-    </div>
+     </div>
+   </div>
+</div>
+    
+    <?= $content ?>
 
-    <footer class="footer">
-        <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
+	<wb:comments url="auto" border="y" brandline="y" width="auto" ></wb:comments>
+	<footer>
+		<div style="position:relative;text-align: center">
+        	<div>
+	        	<div style="float:left; width:280px;">微博：<a alt="bigdataedu.org" title="bigdataedu.org" target="_blank" href="http://weibo.com/bigdataedu">@bigdataedu</a> <img alt="bigdataedu.org" title="bigdataedu.org" src="<?php  ?>" /></div>
+	        	<div style="float:left; width:280px;">微信：<a alt="bigdataedu.org" title="bigdataedu.org" target="_blank" href="http://weixin.qq.com/r/m0NudvfEYaoerbMV9xaJ">bigdataedu</a> &nbsp;&nbsp; <img alt="bigdataedu.org" title="bigdataedu.org" src="<?php  ?>" /></div>
+	        	<div style="float:left; width:280px;">QQ群：<a alt="bigdataedu.org" title="bigdataedu.org" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=9b2aac3bfdefa7c9ec8a97286bb11664d2716df0f9b96468f617641650ef6a94">246972879</a>&nbsp; <img alt="bigdataedu.org" title="bigdataedu.org" src="<?php  ?>" /></div>
+				<a href="#">回到顶部</a>
+			</div>
+			<div>
+				<p class="pull-center"><?= Yii::powered() ?> @ <?= date('Y') ?></p>
+			</div>
+					
         </div>
     </footer>
 
     <?php $this->endBody() ?>
+    <script src="js/holder.js"></script>
+    <script src="js/bootstrap.js"></script>
+ 	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=93780036" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
 <?php $this->endPage() ?>
